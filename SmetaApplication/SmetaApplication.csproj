@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA6F2EE6-E21E-4E53-963B-2FCD59F8F531}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SmetaApplication</RootNamespace>
+    <AssemblyName>Смета</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\Windows\Desktop\Publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationVersion>2.3.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>F1BB7A4F5FDF3A2DA4041DFB12FB8A128DA23ECE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SmetaApplication_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SmetaApllication2.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ик2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Component\CustomResultItem.xaml.cs">
+      <DependentUpon>CustomResultItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Context\ReportContext.cs" />
+    <Compile Include="Converter\DoubleConverter.cs" />
+    <Compile Include="Converter\MoneyConverter.cs" />
+    <Compile Include="DbContexts\DBConnection.cs" />
+    <Compile Include="Filtrs\DistanceLevenshtein.cs" />
+    <Compile Include="Filtrs\EPlaceWork.cs" />
+    <Compile Include="Filtrs\WorkFiltr.cs" />
+    <Compile Include="Methods\ConvertNumericalMoneyToTextMoney.cs" />
+    <Compile Include="Methods\ReadXml.cs" />
+    <Compile Include="Methods\WriteXml.cs" />
+    <Compile Include="Models\AbstractModel.cs" />
+    <Compile Include="Models\Contract\Contract.cs" />
+    <Compile Include="Models\IModelAction.cs" />
+    <Compile Include="Models\Report\ReportStructure.cs" />
+    <Compile Include="Models\WorkModels\WorkData.cs" />
+    <Compile Include="ViewModels\CommentaryView.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MaterialGroupDemView.cs" />
+    <Compile Include="ViewModels\MaterialMainView.cs" />
+    <Compile Include="ViewModels\MinumunPayView.cs" />
+    <Compile Include="ViewModels\ModelView.cs" />
+    <Compile Include="ViewModels\PostView.cs" />
+    <Compile Include="ViewModels\PriborGroupView.cs" />
+    <Compile Include="ViewModels\SelectedWorkView.cs" />
+    <Compile Include="ViewModels\WorkDemView.cs" />
+    <Compile Include="ViewModels\WorkListView.cs" />
+    <Compile Include="ViewModels\WorkSectionView.cs" />
+    <Compile Include="Windows\Adds\WindowAddContract.xaml.cs">
+      <DependentUpon>WindowAddContract.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddFromMaterialList.xaml.cs">
+      <DependentUpon>WindowAddFromMaterialList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddFromPriborList.xaml.cs">
+      <DependentUpon>WindowAddFromPriborList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddMaterial.xaml.cs">
+      <DependentUpon>WindowAddMaterial.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddMinumumPay.xaml.cs">
+      <DependentUpon>WindowAddMinumumPay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddPost.xaml.cs">
+      <DependentUpon>WindowAddPost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddPribor.xaml.cs">
+      <DependentUpon>WindowAddPribor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddTeamGroup.xaml.cs">
+      <DependentUpon>WindowAddTeamGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddWork.xaml.cs">
+      <DependentUpon>WindowAddWork.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddWorkSection.xaml.cs">
+      <DependentUpon>WindowAddWorkSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowAddWorkType.xaml.cs">
+      <DependentUpon>WindowAddWorkType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Adds\WindowNewSection.xaml.cs">
+      <DependentUpon>WindowNewSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowContractList.xaml.cs">
+      <DependentUpon>WindowContractList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowMaterialList.xaml.cs">
+      <DependentUpon>WindowMaterialList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowMinPayList.xaml.cs">
+      <DependentUpon>WindowMinPayList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowPostList.xaml.cs">
+      <DependentUpon>WindowPostList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowPriborList.xaml.cs">
+      <DependentUpon>WindowPriborList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowWorkList.xaml.cs">
+      <DependentUpon>WindowWorkList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowWorkSectionList.xaml.cs">
+      <DependentUpon>WindowWorkSectionList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\List\WindowWorkTypeList.xaml.cs">
+      <DependentUpon>WindowWorkTypeList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Other\UpdateWindow.xaml.cs">
+      <DependentUpon>UpdateWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Other\WorkProperties.xaml.cs">
+      <DependentUpon>WorkProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Report\ReportSettings.xaml.cs">
+      <DependentUpon>ReportSettings.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Component\CustomResultItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Attributs\DateTimeKindAttribute.cs" />
+    <Compile Include="Attributs\LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\ReportColumnConstants.cs" />
+    <Compile Include="Context\ContextWorkSection.cs" />
+    <Compile Include="Context\MainWindowContext.cs" />
+    <Compile Include="Context\MaterialContext.cs" />
+    <Compile Include="Context\PriborContext.cs" />
+    <Compile Include="Context\PropertyKoefView.cs" />
+    <Compile Include="Context\PropertyMainView.cs" />
+    <Compile Include="Context\TeamContext.cs" />
+    <Compile Include="Context\WorkContext.cs" />
+    <Compile Include="DbContexts\SmetaDbAppContext.cs" />
+    <Compile Include="ImportData\Methods\ReadXml.cs" />
+    <Compile Include="ImportData\Models\Data.cs" />
+    <Compile Include="ImportData\Models\Dogovor.cs" />
+    <Compile Include="ImportData\Models\DogovorNewShablon.cs" />
+    <Compile Include="ImportData\Models\DogovorShablan.cs" />
+    <Compile Include="ImportData\Models\Ish.cs" />
+    <Compile Include="ImportData\Models\IshShablon.cs" />
+    <Compile Include="ImportData\Models\IshTuri.cs" />
+    <Compile Include="ImportData\Models\Izoh.cs" />
+    <Compile Include="ImportData\Models\IzohShablon.cs" />
+    <Compile Include="ImportData\Models\Lavozim.cs" />
+    <Compile Include="ImportData\Models\LavozimShablon.cs" />
+    <Compile Include="ImportData\Models\MinZarplata.cs" />
+    <Compile Include="ImportData\Models\MinZarplataShablon.cs" />
+    <Compile Include="ImportData\Models\PerixodShablon.cs" />
+    <Compile Include="ImportData\Models\PovishKoefsent.cs" />
+    <Compile Include="ImportData\Models\RedoUndo.cs" />
+    <Compile Include="ImportData\Models\Shablon.cs" />
+    <Compile Include="ImportData\Models\ShablonContext.cs" />
+    <Compile Include="ImportData\Models\SostavBrigada.cs" />
+    <Compile Include="ImportData\Models\SostavShablon.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddFromMaterialList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddFromPriborList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddMaterial.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddMinumumPay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddPost.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddPribor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddTeamGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddWork.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddWorkSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Adds\WindowAddWorkType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Adds\WindowNewSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowContractList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\List\WindowMaterialList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowMinPayList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowPostList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowPriborList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowWorkList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowWorkSectionList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\List\WindowWorkTypeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Other\UpdateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Other\WorkProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Report\ReportSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Methods\Helper.cs" />
+    <Compile Include="Models\Amount\MinimumPay.cs" />
+    <Compile Include="Models\Amount\Post.cs" />
+    <Compile Include="Models\Commentary\Commentary.cs" />
+    <Compile Include="Models\GroupMaterial\MaterialGroup.cs" />
+    <Compile Include="Models\GroupMaterial\PriborGroup.cs" />
+    <Compile Include="Models\Material\Material.cs" />
+    <Compile Include="Models\Material\Pribor.cs" />
+    <Compile Include="Models\Team\WorkTeam.cs" />
+    <Compile Include="Models\WorkModels\Work.cs" />
+    <Compile Include="Models\WorkModels\WorkSection.cs" />
+    <Compile Include="Models\WorkModels\WorkType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="ик2.ico" />
+    <Resource Include="88e741ba0520aa066737de46c965a28c.ico" />
+    <Content Include="Files\Unfavourable.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Back_image.jpg" />
+    <Resource Include="Smete.ico" />
+    <Content Include="Templates\material.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\pribor.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\update.jpg" />
+    <Content Include="x64\SQLite.Interop.dll" />
+    <Content Include="x86\SQLite.Interop.dll" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="AppData\SmetaDb.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SmetaApllication2.pfx" />
+    <None Include="SmetaApplication_TemporaryKey.pfx" />
+    <Content Include="Templates\report.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1353183085_save.png" />
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\copy.png" />
+    <Resource Include="Images\cut.png" />
+    <Resource Include="Images\deletered.png" />
+    <Resource Include="Images\find.png" />
+    <Resource Include="Images\format_painter.png" />
+    <Resource Include="Images\go-next.png" />
+    <Resource Include="Images\go-previous.png" />
+    <Resource Include="Images\help.png" />
+    <Resource Include="Images\home.png" />
+    <Resource Include="Images\lock_blue.png" />
+    <Resource Include="Images\new.png" />
+    <Resource Include="Images\open.png" />
+    <Resource Include="Images\options.png" />
+    <Resource Include="Images\paste.png" />
+    <Resource Include="Images\personal.png" />
+    <Resource Include="Images\printer.png" />
+    <Resource Include="Images\quit.png" />
+    <Resource Include="Images\save.png" />
+    <Resource Include="Images\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Material.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\process.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pribor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\redo.png" />
+    <Resource Include="Images\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Office.Interop.Excel">
+      <Version>14.0.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.110</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Localization\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

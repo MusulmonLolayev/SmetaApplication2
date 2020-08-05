@@ -1,0 +1,77 @@
+﻿<Window x:Class="SmetaApplication.Windows.Report.ReportSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.Report"
+        xmlns:converter="clr-namespace:SmetaApplication.Converter"
+        mc:Ignorable="d"
+        Title="Настройка отчета" Height="450" Width="580" ResizeMode="NoResize"
+        FontFamily="Times New Roman">
+
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <GroupBox Header="Неблагоприятный период года" Margin="2">
+                <StackPanel>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Месяц</TextBlock>
+                    <ComboBox Margin="5" 
+                          ItemsSource="{Binding Path=UnfavourableMonth}"
+                          SelectedValue="{Binding Path=SelectedUnfavourableMonth}"/>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Продолжительность неблагоприятного периода в месяцах</TextBlock>
+                    <ComboBox Margin="5" 
+                          ItemsSource="{Binding Path=UnfavourableTime}"
+                          SelectedValue="{Binding Path=SelectedUnfavourableTime}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Температура" Margin="2">
+                <StackPanel>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Средняя температура воздуха, ˚С</TextBlock>
+                    <ComboBox Margin="5" 
+                          ItemsSource="{Binding Path=Temperature}"
+                          SelectedValue="{Binding Path=SelectedTemperature}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Затраты по организации и ликвидации" Margin="2">
+                <StackPanel>
+                    <TextBlock Margin="5">Виды изысканий</TextBlock>
+                    <ComboBox Margin="5"
+                          ItemsSource="{Binding Path=TypeExplore}"
+                          SelectedValue="{Binding Path=SelectedTypeExplore}"/>
+                </StackPanel>
+            </GroupBox>
+            <Button Margin="170 5 5 5" Width="100" Click="Button_Click_1">Отмена</Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <GroupBox Header="Транспорт" Margin="2">
+                <StackPanel>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Затраты по внутреннему транспорту. Расстояния от базы изыскательский подразделений до участка изысканий, км</TextBlock>
+                    <ComboBox Margin="5" 
+                          ItemsSource="{Binding Path=InternalTransportKm}"
+                          SelectedValue="{Binding Path=SelectedInternalTransportKm}"/>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Затраты по внешнему траспорту. Расстояние проезда и перевозки (в одном направлении), км</TextBlock>
+                    <ComboBox Margin="5"
+                          ItemsSource="{Binding Path=ExternalTransportKm}"
+                          SelectedValue="{Binding Path=SelectedExternalTransportKm}"/>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Затраты по внешнему траспорту. Затраты по внешнему транспорту в % от стоимости работ, выполняемых в полевых условиях при продолжительности  изысканий, месяц.</TextBlock>
+                    <ComboBox Margin="5"
+                          ItemsSource="{Binding Path=ExternalTransportMonth}"
+                          SelectedValue="{Binding Path=SelectedExternalTransportMonth}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Прочие расходы в процент (%)" Margin="2">
+                <StackPanel>
+                    <TextBox Text="{Binding OtherExpenditure, Converter={StaticResource DoubleConverter}}"/>
+                </StackPanel>
+            </GroupBox>
+            <Button Margin="170 5 5 5" Width="100" HorizontalAlignment="Right" Click="Button_Click">Ок</Button>
+        </StackPanel>
+    </Grid>
+</Window>

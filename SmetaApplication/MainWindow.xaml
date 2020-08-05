@@ -1,0 +1,600 @@
+﻿<Window x:Class="SmetaApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SmetaApplication"
+        xmlns:ViewWorksNamespace="clr-namespace:SmetaApplication.ViewModels"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:converter="clr-namespace:SmetaApplication.Converter"
+        Height="575" Width="1000"
+        WindowState="Maximized" Title="УзГАШКЛИТИ. Программа смета по РСН">
+
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.InsertFromTable}" Executed="MyCommandExecuted"/>
+    </Window.CommandBindings>-->
+    
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--Menu-->
+            <RowDefinition Height="Auto"/>
+            <!--Quick Buttons-->
+            <RowDefinition Height="Auto"/>
+            <!--For Show Count of Money-->
+            <RowDefinition Height="Auto"/>
+            <!--Main-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Menu-->
+        <Grid Grid.Row="0" Height="26">
+            <Menu  Margin="2 0 2 0" Background="AliceBlue">
+                <MenuItem Height="26">
+                    <MenuItem.Header>
+                        <TextBlock>Меню</TextBlock>
+                    </MenuItem.Header>
+                    <MenuItem Header="Новый" x:Name="menunew" Visibility="Collapsed">
+                        <MenuItem.Icon>
+                            <Image  Source="Images\new.png" Width="15" Height="15"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Открыть" x:Name="menuopen" Visibility="Collapsed">
+                        <MenuItem.Icon>
+                            <Image  Source="Images\open.png" Width="15" Height="15"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Сохранить" x:Name="menusave" Visibility="Collapsed">
+                        <MenuItem.Icon>
+                            <Image Source="Images\save.png" Width="15" Height="15"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Выход" x:Name="menuexit">
+                        <MenuItem.Icon>
+                            <Image Source="Images\quit.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Margin="2 2 2 2"  Visibility="Collapsed">
+                    <MenuItem.Header>
+                        <TextBlock>Вид</TextBlock>
+                    </MenuItem.Header>
+                    <MenuItem  IsChecked="True" x:Name="menuitemview">
+                        <MenuItem.Header>
+                            <TextBlock>Панель инструментов</TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem IsChecked="False" x:Name="menuitemdogovor">
+                        <MenuItem.Header>
+                            <TextBlock>Панель  договоров</TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+
+                    <MenuItem IsChecked="True" x:Name="menuitemnewdogovor">
+                        <MenuItem.Header>
+                            <TextBlock>Панель новой сметы</TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Сервис" FontSize="14" Height="26">
+                    <MenuItem Header="Список должностей" x:Name="menulovozim" Click="ClickPostWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\personal.png" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Список типов работ" x:Name="menunewworktype" Click="ClickWorkTypeWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\new.png" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Список групп работ" x:Name="menunewworksection" Click="ClickWorkSectionWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\new.png" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Список работ" x:Name="menunewwork" Click="ClickWorkWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\process.png" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Список материалов" x:Name="menunewmaterials" Click="ClickMaterialWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\material.jpg" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Список приборов" x:Name="menunewpribors" Click="ClickPriborWindowShow">
+                        <MenuItem.Icon>
+                            <Image Source="Images\pribor.jpg" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Обновить" x:Name="menuUpdate" Click="MenuUpdate_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Images\update.jpg" Width="20" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    
+                    <MenuItem Header="Полевые коеффиценты" x:Name="menuDalaKoyffetsent" Visibility="Collapsed">
+
+                    </MenuItem>
+
+                    <MenuItem Header="Геологические коеффиценты" x:Name="menuGeologiyaKoyffetsent" Visibility="Collapsed">
+
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Visibility="Collapsed">
+                    <MenuItem.Header>
+                        <TextBlock>
+                            Инструкция
+                        </TextBlock>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Visibility="Collapsed">
+                    <MenuItem.Header>
+                        <TextBlock>
+                            dastur
+                        </TextBlock>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <!--Quick buttons-->
+        <Grid Grid.Row="1" Height="40">
+            <ToolBar Visibility="Visible">
+                <Button Margin="1" Command="{Binding HomeCommand}" Visibility="Visible">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Image Source="Images\new.png" 
+                               Width="20" Height="20" 
+                               Margin="0 0 5 0"/>-->
+                        <TextBlock >Главное окно</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBNew" Margin="1" Command="{Binding NewContractCommand}" Visibility="Visible">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\new.png" 
+                               Width="20" Height="20" 
+                               Margin="0 0 5 0"/>
+                        <TextBlock >Новый</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBOpen" Margin="1" Visibility="Visible" Command="{Binding OpenContractsCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\open.png" Width="20" Height="20" Margin="0 0 5 0"/>
+                        <TextBlock>Открыть</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="TBSave" Margin="1" Visibility="Visible" Command="{Binding SaveCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\save.png" Width="20" Height="20" Margin="0 0 5 0"/>
+                        <TextBlock>Сохранить</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator Visibility="Collapsed"/>
+                <Button Margin="1" x:Name="TBUndo" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\undo.png" Width="20" Height="20"/>
+                        <TextBlock Margin="2 0 0 0">Назад</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Margin="1" x:Name="TBRedo" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\Redo.png" Width="20" Height="20"/>
+                        <TextBlock Margin="2 0 0 0">Вперед</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator/>
+                <Button x:Name="TBAdd" Margin="1" Command="{Binding CopyCommand}" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\copy.png" Width="20" Height="20"/>
+                        <TextBlock VerticalAlignment="Center">Дубликать</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBEdit" Margin="1" Visibility="Visible" Command="{Binding AddWorkCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\add.png" Width="20" Height="20"/>
+                        <TextBlock>Добавить</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBCopy" Margin="1" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\copy.png" Width="20" Height="20"/>
+                        <TextBlock>Копировать</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBDelete" Margin="1" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\deletered.png" Width="20" Height="20"/>
+                        <TextBlock VerticalAlignment="Center">Удалить</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator />
+                <Button x:Name="TBKorish" Margin="1" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\view.png" Width="20" Height="20"/>
+                        <TextBlock VerticalAlignment="Center">Просмотр</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBPrint" Margin="1" Command="{Binding PrintCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\printer.png" Width="20" Height="20"/>
+                        <TextBlock VerticalAlignment="Center">Печать</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="TBFind" Margin="1" Click="Click_Search" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images\find.png" Width="20" Height="20"/>
+                        <TextBlock VerticalAlignment="Center">Импорт</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </Grid>
+
+        <!--For show count of money-->
+        <Border Grid.Row="2" BorderBrush="Aqua" BorderThickness="1" Margin="2" Visibility="{Binding MainPlace}">
+            <Expander  IsExpanded="False">
+                <Expander.Header>
+                    <Grid Visibility="{Binding ExpanderHeaderState}">
+                        <WrapPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Foreground="Red">Полевые:</Label>
+                                <TextBlock 
+                            Text="{Binding Path=PricePolAll, Converter={StaticResource MoneyConverter}}" 
+                            VerticalAlignment="Center" Width="100" TextAlignment="Right"/>
+                                <Label>сум</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Foreground="Red">Лабораторные:</Label>
+                                <TextBlock Text="{Binding Path=PriceLabortorniy, Converter={StaticResource MoneyConverter}}"  
+                                   VerticalAlignment="Center" Width="100" TextAlignment="Right"/>
+                                <Label>сум</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Foreground="Red">Камеральные:</Label>
+                                <TextBlock Text="{Binding Path=PriceKameralniy, Converter={StaticResource MoneyConverter}}" 
+                                   VerticalAlignment="Center" Width="100" TextAlignment="Right"/>
+                                <Label>сум</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Foreground="Red">Всего:</Label>
+                                <TextBlock Text="{Binding Path=PriceAll, Converter={StaticResource MoneyConverter}}" 
+                                VerticalAlignment="Center" Width="100" TextAlignment="Right"/>
+                                <Label>сум</Label>
+                            </StackPanel>
+                        </WrapPanel>
+                    </Grid>
+                </Expander.Header>
+                <Grid Height="80">
+                    <WrapPanel Orientation="Horizontal">
+                        
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="73*" />
+                                <ColumnDefinition Width="27*"/>
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="129*" />
+                                <ColumnDefinition Width="100*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="12" Foreground="Red" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="2" Margin="53,0,52,0">Полевые работы (сум)</TextBlock>
+
+                            <TextBlock FontSize="12" Grid.Row="1" Foreground="Red" Grid.ColumnSpan="2">Заработная плата:</TextBlock>
+                            <TextBlock Text="{Binding Path=PricePolPay, Converter={StaticResource MoneyConverter}}" FontSize="12" Grid.Row="1" Grid.Column="2" Width="100" TextAlignment="Right"></TextBlock>
+
+                            <TextBlock Margin="5 0 0 0" FontSize="12" Grid.Row="1" Grid.Column="3" Foreground="Red">Районный коэфф. к зп:</TextBlock>
+                            <TextBlock Text="{Binding Path=PricePolPay15, Converter={StaticResource MoneyConverter}}" FontSize="12" Grid.Row="1" Grid.Column="4" Width="100" TextAlignment="Right"></TextBlock>
+
+                            <TextBlock FontSize="12" Grid.Row="2" Grid.Column="0" Foreground="Red" Grid.ColumnSpan="2">Амортизация:</TextBlock>
+                            <TextBlock Text="{Binding Path=PricePolPribor, Converter={StaticResource MoneyConverter}}" FontSize="12" Grid.Row="2" Grid.Column="2" Width="100" TextAlignment="Right"></TextBlock>
+
+                            <TextBlock Margin="5 0 0 0" FontSize="12" Grid.Row="2" Grid.Column="3" Foreground="Red">Материалы:</TextBlock>
+                            <TextBlock Text="{Binding Path=PricePolMaterial, Converter={StaticResource MoneyConverter}}" FontSize="12" Grid.Row="2" Grid.Column="4" Width="100" TextAlignment="Right"></TextBlock>
+
+                            <TextBlock FontSize="12" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Red">Итого полевые работы:</TextBlock>
+                            <TextBlock Text="{Binding Path=PricePolAll, Converter={StaticResource MoneyConverter}}" FontSize="12" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" TextAlignment="Right"></TextBlock>
+
+                        </Grid>
+                    </WrapPanel>
+                </Grid>
+            </Expander>
+        </Border>
+
+        <!--Main-->
+        <Grid Grid.Row="3" Margin="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="images/Back_image.jpg" />
+            </Grid.Background>
+            <TabControl  Visibility="{Binding MainPlace}">
+                <TabItem Header="Полевые" Height="22">
+                    <DataGrid x:Name="listPoliviy" 
+                              Grid.Row="1" ItemsSource="{Binding Path=Poliviy}"
+                              SelectedValue="{Binding Path=CurrentWork}"
+                              Margin="5,5,5,5" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              FrozenColumnCount="5"
+                              ColumnWidth="*"
+                              >
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=ShowProperties}"
+                                          CommandParameter="{Binding CollectionView/}"
+                                          />
+                        </DataGrid.InputBindings>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Свойство" Command="{Binding ShowProperties}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="№" Binding="{Binding Path=N}"  Width="50"/>
+
+                            <DataGridTemplateColumn Header="Наименования"
+                                IsReadOnly="True" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Категория сложности"
+                                Width="85" Binding="{Binding Path=Diff}" IsReadOnly="True"/>
+
+                            <DataGridTemplateColumn Header="Номер нормы"
+                                IsReadOnly="True" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Number}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Единица измерения"
+                                Width="90" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Measure}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Норма время"
+                                Width="85" Binding="{Binding Path=Time, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Объем"
+                                Width="85" Binding="{Binding Path=Size, Converter={StaticResource DoubleConverter}}" IsReadOnly="False"/>
+
+                            <DataGridTextColumn Header="Заработная плата за единицу в сум"
+                                Width="90" Binding="{Binding Path=PricePay, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Коэффи-циенты"
+                                Width="70" Binding="{Binding Path=Koef, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Полевое довольствие в сум"
+                                Width="113" Binding="{Binding Path=PolviyDovol, Converter={StaticResource DoubleConverter}}"/>
+
+                            <DataGridTextColumn Header="ВСЕГО заработная плата в сум"
+                                Width="90" Binding="{Binding Path=PricePayAllView, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за единицу в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterial, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за вес объём в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterialForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за час в сум"
+                                Width="110" Binding="{Binding Path=PricePriborInHour, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за вес объём в сум"
+                                Width="110" Binding="{Binding Path=PricePriborForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость  продукции" 
+                                Width="90" Binding="{Binding Path=AllCost, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Лабораторные">
+                    <DataGrid x:Name="listLobarotorniy" Grid.Row="1" 
+                              ItemsSource="{Binding Path=Laboratorniy}"
+                              SelectedValue="{Binding Path=CurrentWorkLab}"
+                              Margin="5,5,5,5" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              FrozenColumnCount="5">
+
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=ShowPropertiesLab}"
+                                          CommandParameter="{Binding CollectionView/}"
+                                          />
+                        </DataGrid.InputBindings>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Свойство" Command="{Binding ShowPropertiesLab}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="№" Binding="{Binding Path=N}"  Width="50"/>
+
+                            <DataGridTemplateColumn Header="Наименования"
+                                IsReadOnly="True" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Категория сложности"
+                                Width="85" Binding="{Binding Path=Diff}" IsReadOnly="True"/>
+
+                            <DataGridTemplateColumn Header="Номер нормы"
+                                IsReadOnly="True" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Number}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Единица измерения"
+                                Width="90" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Measure}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Норма время"
+                                Width="85" Binding="{Binding Path=Time, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Объем"
+                                Width="85" Binding="{Binding Path=Size, Converter={StaticResource DoubleConverter}}" IsReadOnly="False"/>
+
+                            <DataGridTextColumn Header="Заработная плата за единицу в сум"
+                                Width="90" Binding="{Binding Path=PricePay, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Коэффи-циенты"
+                                Width="70" Binding="{Binding Path=Koef, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Полевое довольствие в сум"
+                                Width="113" Binding="{Binding Path=PolviyDovol, Converter={StaticResource DoubleConverter}}"/>
+
+                            <DataGridTextColumn Header="ВСЕГО заработная плата в сум"
+                                Width="90" Binding="{Binding Path=PricePayAll, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за единицу в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterial, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за вес объём в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterialForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за час в сум"
+                                Width="110" Binding="{Binding Path=PricePriborInHour, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за вес объём в сум"
+                                Width="110" Binding="{Binding Path=PricePriborForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость  продукции" 
+                                Width="90" Binding="{Binding Path=AllCost, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem 
+                    Header="Камеральные">
+                    <DataGrid x:Name="listKamerlaniy" Grid.Row="1" ItemsSource="{Binding Path=Kameralniy}"
+                              SelectedValue="{Binding Path=CurrentWorkKam}"
+                              Margin="5,5,5,5" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              FrozenColumnCount="5">
+
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=ShowPropertiesKam}"
+                                          CommandParameter="{Binding CollectionView/}"
+                                          />
+                        </DataGrid.InputBindings>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Свойство" Command="{Binding ShowPropertiesKam}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="№" Binding="{Binding Path=N}"  Width="50"/>
+
+                            <DataGridTemplateColumn Header="Наименования"
+                                IsReadOnly="True" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Категория сложности"
+                                Width="85" Binding="{Binding Path=Diff}" IsReadOnly="True"/>
+
+                            <DataGridTemplateColumn Header="Номер нормы"
+                                IsReadOnly="True" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Number}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Единица измерения"
+                                Width="90" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Measure}" TextWrapping="WrapWithOverflow"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Норма время"
+                                Width="85" Binding="{Binding Path=Time, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Объем"
+                                Width="85" Binding="{Binding Path=Size, Converter={StaticResource DoubleConverter}}" IsReadOnly="False"/>
+
+                            <DataGridTextColumn Header="Заработная плата за единицу в сум"
+                                Width="90" Binding="{Binding Path=PricePay, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Коэффи-циенты"
+                                Width="70" Binding="{Binding Path=Koef, Converter={StaticResource DoubleConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Полевое довольствие в сум"
+                                Width="113" Binding="{Binding Path=PolviyDovol, Converter={StaticResource DoubleConverter}}"/>
+
+                            <DataGridTextColumn Header="ВСЕГО заработная плата в сум"
+                                Width="90" Binding="{Binding Path=PricePayAll, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за единицу в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterial, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость материалов за вес объём в сум"
+                                Width="95" Binding="{Binding Path=PriceMaterialForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за час в сум"
+                                Width="110" Binding="{Binding Path=PricePriborInHour, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Амортизация приборов и оборудования за вес объём в сум"
+                                Width="110" Binding="{Binding Path=PricePriborForSize, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Стоимость  продукции" 
+                                Width="90" Binding="{Binding Path=AllCost, Converter={StaticResource MoneyConverter}}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

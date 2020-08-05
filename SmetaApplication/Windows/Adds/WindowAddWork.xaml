@@ -1,0 +1,272 @@
+﻿<Window x:Class="SmetaApplication.Windows.Adds.WindowAddWork"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:converter="clr-namespace:SmetaApplication.Converter"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.Adds"
+        Title="Создать новую работу" WindowState="Maximized" Language="Ru-ru">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:WindowAddWork.InsertFromTable}" Executed="MyCommandExecuted"/>
+    </Window.CommandBindings>
+
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="5 0 0 0">*Наименование</TextBlock>
+                <TextBox Text="{Binding Path=Work.Name}"
+                         SpellCheck.IsEnabled="True"
+                         Height="80" AcceptsReturn="True" TextWrapping="Wrap"
+                         Margin="5,0 5 0"
+                         />
+            </StackPanel>
+            <Grid Grid.Column="1" Margin="0 0 0 1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition />
+                    <RowDefinition Height="20"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="5 0 0 0">*Номер норма</TextBlock>
+                <TextBox Margin="5,0 5 0" Grid.Row="1" Text="{Binding Path=Work.Number}"/>
+
+                <TextBlock Grid.Row="2" Margin="5 0 0 0" TextWrapping="Wrap" >Единица измерения</TextBlock>
+                <TextBox Grid.Row="3" Text="{Binding Path=Work.Measure}" />
+            </Grid>
+        </Grid>
+        <GroupBox Header="Категория сложности" Grid.Row="1" Margin="2 0 2 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition />
+                    <ColumnDefinition  Width="24"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0">I:</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="1" Text="{Binding Path=Work.Time1}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2">II:</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="3" Text="{Binding Path=Work.Time2}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="4">III:</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="5" Text="{Binding Path=Work.Time3}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="6">IV:</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="7" Text="{Binding Path=Work.Time4}"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="8">V:</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="9" Text="{Binding Path=Work.Time5}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0">VI:</TextBlock>
+                <TextBox  Grid.Row="1" Grid.Column="1" Text="{Binding Path=Work.Time6}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2">VII:</TextBlock>
+                <TextBox  Grid.Row="1" Grid.Column="3" Text="{Binding Path=Work.Time7}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="4">VIII:</TextBlock>
+                <TextBox  Grid.Row="1" Grid.Column="5" Text="{Binding Path=Work.Time8}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="6">IX:</TextBlock>
+                <TextBox  Grid.Row="1" Grid.Column="7" Text="{Binding Path=Work.Time9}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="8">X:</TextBlock>
+                <TextBox  Grid.Row="1" Grid.Column="9" Text="{Binding Path=Work.Time10}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0">XI:</TextBlock>
+                <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Path=Work.Time11}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="2">XII:</TextBlock>
+                <TextBox  Grid.Row="2" Grid.Column="3" Text="{Binding Path=Work.Time12}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="4">XIII:</TextBlock>
+                <TextBox  Grid.Row="2" Grid.Column="5" Text="{Binding Path=Work.Time13}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="6">XIV:</TextBlock>
+                <TextBox  Grid.Row="2" Grid.Column="7" Text="{Binding Path=Work.Time14}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="8">XV:</TextBlock>
+                <TextBox  Grid.Row="2" Grid.Column="9" Text="{Binding Path=Work.Time15}"/>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="2" Header="*Тип и груп работы" Margin="2 0 2 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Margin="2">Тип работы: </TextBlock>
+                <ComboBox Grid.Column="1" Margin="2"  ItemsSource="{Binding WorkTypes}" 
+                          SelectedValue="{Binding Path=SelectedWorkType}" SelectionChanged="ComboBox_SelectionChanged"/>
+                
+                <TextBlock Grid.Column="2" Margin="2">Груп работы:</TextBlock>
+                <ComboBox x:Name="Section" Grid.Column="3" Margin="2" 
+                          ItemsSource="{Binding Path=WorkSections}" 
+                          SelectedValue="{Binding Path=SelectedSection}"/>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label>*Список группа работников</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                <Button Content="Добавить, Изменить и Удалить работники" Margin="2" Click="OnClickEditTeam" />
+            </StackPanel>
+
+            <ListView Grid.Row="2" ItemsSource="{Binding TeamContexts}"
+                      Grid.ColumnSpan="2"
+                      Margin="2 0 2 0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Наименования должности" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Post.Name}" TextWrapping="WrapWithOverflow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Количество сотрудников" Width="100" DisplayMemberBinding="{Binding Path=WorkTeam.Count}"/>
+                        <GridViewColumn Header="Разряд сотрудников" Width="100" DisplayMemberBinding="{Binding Path=Post.Raz}"/>
+                        <GridViewColumn Header="Месячная заработная плата (сум)" Width="150" DisplayMemberBinding="{Binding Path=Post.Pay, Converter={StaticResource MoneyConverter}}"/>
+                        <GridViewColumn Header="Рабочие время в месяце (час)" Width="100" DisplayMemberBinding="{Binding Path=HourInMoon, Converter={StaticResource MoneyConverter}}"/>
+                        <GridViewColumn Header="Коэффициент сотрудников" Width="100" DisplayMemberBinding="{Binding Path=WorkTeam.Koef, Converter={StaticResource DoubleConverter}}"/>
+                        <GridViewColumn Header="Часовая заработная плата (сум)" Width="100" DisplayMemberBinding="{Binding Path=PaybyHour, Converter={StaticResource MoneyConverter}}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="125"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Label>Список материалов</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                <Button Content="Добавить, Изменить и Удалить материалы" Margin="2" Click="OnClickEditMaterial"/>
+            </StackPanel>
+
+            <ListView Grid.Row="1" Name="MaterialData" 
+                      ItemsSource="{Binding Path=MaterailContexts}"
+                      Grid.ColumnSpan="2" Margin="2 0 2 0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Код материалов" Width="90" DisplayMemberBinding="{Binding Path=Material.Code}"/>
+                        <GridViewColumn Header="Наименования материалов" Width="200" DisplayMemberBinding="{Binding Path=Material.Name}"/>
+                        <GridViewColumn Header="Стоимость материалов" Width="90" DisplayMemberBinding="{Binding Path=Material.Price}"/>
+                        <GridViewColumn Header="Единица измерения" Width="100" DisplayMemberBinding="{Binding Path=Material.Dimension}"/>
+                        <GridViewColumn Header="За вес объём" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Path=MaterialGroup.ForAllObject}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Категория сложности I" Width="80" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=MaterialGroup.Count1}" 
+                                             Width="60" IsReadOnly="True" 
+                                             BorderThickness="0"
+                                             MouseDoubleClick="MouseDoubleClick_SetEdit" /> 
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Категория сложности II" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count2}"/>
+                        <GridViewColumn Header="Категория сложности III" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count3}"/>
+                        <GridViewColumn Header="Категория сложности IV" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count4}"/>
+                        <GridViewColumn Header="Категория сложности V" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count5}"/>
+                        <GridViewColumn Header="Категория сложности VI" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count6}"/>
+                        <GridViewColumn Header="Категория сложности VII" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count7}"/>
+                        <GridViewColumn Header="Категория сложности VIII" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count8}"/>
+                        <GridViewColumn Header="Категория сложности IX" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count9}"/>
+                        <GridViewColumn Header="Категория сложности X" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count10}"/>
+                        <GridViewColumn Header="Категория сложности XI" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count11}"/>
+                        <GridViewColumn Header="Категория сложности XII" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count12}"/>
+                        <GridViewColumn Header="Категория сложности XIII" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count13}"/>
+                        <GridViewColumn Header="Категория сложности XIV" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count14}"/>
+                        <GridViewColumn Header="Категория сложности XV" Width="80" DisplayMemberBinding="{Binding Path=MaterialGroup.Count15}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <Label Grid.Column="2">Список приборов и оборудования</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="3">
+                <Button Content="Добавить, Изменить и Удалить приборы" Margin="2" Click="OnClickEditPribor"/>
+            </StackPanel>
+            <ListView Grid.Row="1" Name="PriborData" Grid.Column="2"
+                      ItemsSource="{Binding Path=PriborContexts}"
+                      Grid.ColumnSpan="2" 
+                       Margin="2 0 2 0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Код" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Code}"/>
+                        <GridViewColumn Header="Наименования" Width="150" DisplayMemberBinding="{Binding Path=Pribor.Name}"/>
+                        <GridViewColumn Header="Стоимость" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Price, Converter={StaticResource MoneyConverter}}"/>
+                        <GridViewColumn Header="Единица измерения" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Dimension}"/>
+                        <GridViewColumn Header="Амортизация (%)" Width="80" DisplayMemberBinding="{Binding Path=Pribor.Percent}"/>
+                        <GridViewColumn Header="Количество приборов" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Path=PriborGroup.Count}" 
+                                             Width="60" IsReadOnly="True" 
+                                             BorderThickness="0"
+                                             MouseDoubleClick="MouseDoubleClick_SetEdit" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="5" Margin="2">
+            <Button Content="Отмена" Click="OnClickCancel" Margin="0 0 5 0" Width="150"/>
+            <Button Content="Ок" Click="OnClickOk" Margin="5 0 0 0" Width="150"/>
+        </StackPanel>
+    </Grid>
+</Window>

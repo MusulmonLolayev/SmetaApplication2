@@ -1,0 +1,49 @@
+﻿<Window x:Class="SmetaApplication.Windows.Adds.WindowAddFromMaterialList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Выбирете материалов и введите объём материала совместно с категория сложностями и нажимаете кнопку ОК">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="data" 
+                      Height="Auto" Margin="5,5,5,5" 
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код материалов" Width="90" IsReadOnly="True" Binding="{Binding Path=Material.Code}"/>
+                <DataGridTextColumn Header="Наименования материалов" IsReadOnly="True" Width="200" x:Name="clmSum" Binding="{Binding Path=Material.Name}"/>
+                <DataGridTextColumn Header="Стоимость материалов" IsReadOnly="True" Width="92" Binding="{Binding Path=Material.Price}"/>
+                <DataGridTextColumn Header="Единица измерения" IsReadOnly="True" Width="92" Binding="{Binding Path=Material.Dimension}"/>
+                <DataGridCheckBoxColumn Header="Если за вес объём, то вставите галочку" Width="100" Binding="{Binding Path=MaterialGroup.ForAllObject}"/>
+                <DataGridTextColumn Header="Категория сложности I" Width="82" Binding="{Binding Path=MaterialGroup.Count1}" />
+                <DataGridTextColumn Header="Категория сложности II" Width="82" Binding="{Binding Path=MaterialGroup.Count2}"/>
+                <DataGridTextColumn Header="Категория сложности III" Width="82" Binding="{Binding Path=MaterialGroup.Count3}"/>
+                <DataGridTextColumn Header="Категория сложности IV" Width="82" Binding="{Binding Path=MaterialGroup.Count4}"/>
+                <DataGridTextColumn Header="Категория сложности V" Width="82" Binding="{Binding Path=MaterialGroup.Count5}"/>
+                <DataGridTextColumn Header="Категория сложности VI" Width="82" Binding="{Binding Path=MaterialGroup.Count6}"/>
+                <DataGridTextColumn Header="Категория сложности VII" Width="82" Binding="{Binding Path=MaterialGroup.Count7}"/>
+                <DataGridTextColumn Header="Категория сложности VIII" Width="82" Binding="{Binding Path=MaterialGroup.Count8}"/>
+                <DataGridTextColumn Header="Категория сложности IX" Width="82" Binding="{Binding Path=MaterialGroup.Count9}"/>
+                <DataGridTextColumn Header="Категория сложности X" Width="82" Binding="{Binding Path=MaterialGroup.Count10}"/>
+                <DataGridTextColumn Header="Категория сложности XI" Width="82" Binding="{Binding Path=MaterialGroup.Count11}"/>
+                <DataGridTextColumn Header="Категория сложности XII" Width="82" Binding="{Binding Path=MaterialGroup.Count12}"/>
+                <DataGridTextColumn Header="Категория сложности XIII" Width="82" Binding="{Binding Path=MaterialGroup.Count13}"/>
+                <DataGridTextColumn Header="Категория сложности XIV" Width="82" Binding="{Binding Path=MaterialGroup.Count14}"/>
+                <DataGridTextColumn Header="Категория сложности XV" Width="82" Binding="{Binding Path=MaterialGroup.Count15}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+            <Button Click="btnCancel" Content="Отмена" Margin="2" Width="100"/>
+            <Button Click="btnOk" Content="Ок" Margin="2" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

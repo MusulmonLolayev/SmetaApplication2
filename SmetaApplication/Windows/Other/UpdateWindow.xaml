@@ -1,0 +1,31 @@
+﻿<Window x:Class="SmetaApplication.Windows.Other.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.Other"
+        mc:Ignorable="d"
+        Title="Обновить" Height="235.274" Width="270" ResizeMode="NoResize" Closing="Window_Closing">
+    <Grid>
+        <StackPanel>
+            <GroupBox Header="Материалы" Margin="2">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="2" Content="Сохранить шаблон" Click="btnSaveTemplateMaterial"/>
+                    <Button Margin="25 2 2 2" Content="Обновить" Click="btnUpdateMaterial"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Машины, приборы и оборудование" Margin="2">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="2" Content="Сохранить шаблон" Click="btnSaveTemplatePribor"/>
+                    <Button Margin="25 2 2 2" Content="Обновить" Click="btnUpdatePribor"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Обновление баз данных">
+                <StackPanel>
+                    <Button Content="Начать" Margin="5" Click="btnBeginUpdate" x:Name="btnUpdate"/>
+                    <ProgressBar x:Name="pbUpdateStatus" Margin="5" Height="20"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Window>

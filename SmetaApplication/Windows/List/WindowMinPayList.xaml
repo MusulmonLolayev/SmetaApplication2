@@ -1,0 +1,72 @@
+﻿<Window x:Class="SmetaApplication.Windows.List.WindowMinPayList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.List"
+        xmlns:converter="clr-namespace:SmetaApplication.Converter"
+        mc:Ignorable="d"
+        Title="Списка минимум зарплаты" Closing="Window_Closing">
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ToolBar FontSize="14" Grid.Row="0">
+            <Button x:Name="btnnew" Click="OnClickNew">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/new.png" Width="20" Height="20"/>
+                    <TextBlock>Новый</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnEditing" Margin="5 5 5 5" Click="OnEditing">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/paste.png" Width="20" Height="20"/>
+                    <TextBlock Margin="5 0 0 0"><Run Text="Редактировать"/></TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnDelete" Margin="5 5 5 5" Click="OnDelete">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/Deletered.png" Width="20" Height="20"/>
+                    <TextBlock Margin="5 0 0 0">Удалить</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="5 5 5 5" Click="Install">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/lock_blue.png" Width="20" Height="20"/>
+                    <TextBlock Margin="5 0 0 0">Устанавить</TextBlock>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <DataGrid x:Name="data" ItemsSource="{Binding}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Минимум зар." Width="100" x:Name="clmSum" Binding="{Binding Path=Pay, Converter={StaticResource MoneyConverter}}"/>
+                    <DataGridTextColumn Header="Дата" x:Name="clmSana" Width="100" Binding="{Binding Path=Date}"/>
+                    <DataGridTextColumn Header="Приказ" x:Name="clmSabab" Width="300" Binding="{Binding Path=Content}"/>
+                    <DataGridTemplateColumn Header="Статус">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="clmStatus" IsChecked="{Binding Path=Status}" Checked="Checked"></CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="2" >
+            <ProgressBar x:Name="ProgressBar" Height="20" Margin="2" Visibility="Collapsed"/>
+        </Grid>
+    </Grid>
+</Window>

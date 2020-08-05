@@ -1,0 +1,187 @@
+﻿<Window x:Class="SmetaApplication.Windows.Other.WorkProperties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.Other"
+        mc:Ignorable="d"
+        Title="Свойство работ" Height="450" Width="800"
+    xmlns:converter="clr-namespace:SmetaApplication.Converter" WindowState="Maximized">
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+    <Grid Margin="5" Name="GridItem">
+        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+            <ItemsControl>
+                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"/>
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Margin="2">Номер нормы:</TextBlock>
+                        <TextBlock Text="{Binding Number}"  Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Margin="2">Единица измериния:</TextBlock>
+                        <TextBlock Text="{Binding Measure}"  Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Margin="2">Категория сложности:</TextBlock>
+                        <TextBlock Text="{Binding Measure}"  Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2">Норма время:</TextBlock>
+                        <TextBlock  Margin="2" Text="{Binding Time, Converter={StaticResource DoubleConverter}}"/>
+                    </StackPanel>
+                </WrapPanel>
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal" Margin="2">
+                            <TextBlock>
+                                        Заработная плата. Сумма:
+                            </TextBlock>
+                            <TextBlock Text="{Binding PricePay, Converter={StaticResource MoneyConverter}}"></TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <Grid>
+                        <StackPanel>
+                            <ListView ItemsSource="{Binding TeamContexts}"
+                                              MinHeight="150" MaxHeight="150">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Наименования должности" Width="200">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=Post.Name}" TextWrapping="WrapWithOverflow"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Количество сотрудников" Width="100" DisplayMemberBinding="{Binding Path=WorkTeam.Count}"/>
+                                        <GridViewColumn Header="Разряд сотрудников" Width="100" DisplayMemberBinding="{Binding Path=Post.Raz}"/>
+                                        <GridViewColumn Header="Месячная заработная плата (сум)" Width="150" DisplayMemberBinding="{Binding Path=Post.Pay, Converter={StaticResource MoneyConverter}}"/>
+                                        <GridViewColumn Header="Рабочие время в месяце (час)" Width="100" DisplayMemberBinding="{Binding Path=HourInMoon, Converter={StaticResource MoneyConverter}}"/>
+                                        <GridViewColumn Header="Коэффициент сотрудников" Width="100" DisplayMemberBinding="{Binding Path=WorkTeam.Koef, Converter={StaticResource DoubleConverter}}"/>
+                                        <GridViewColumn Header="Часовая заработная плата (сум)" Width="100" DisplayMemberBinding="{Binding Path=PaybyHour, Converter={StaticResource MoneyConverter}}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal" Margin="2">
+                            <TextBlock>
+                                        Машины, приборы и оборудование (амортизация). Сумма:
+                            </TextBlock>
+                            <TextBlock Text="{Binding PricePriborInHour, Converter={StaticResource MoneyConverter}}"></TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <Grid>
+                        <StackPanel>
+                            <ListView
+                                        Margin="2" ItemsSource="{Binding Path=Pribors}" MinHeight="150" MaxHeight="150">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Код" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Code}"/>
+                                        <GridViewColumn Header="Наименования" Width="150" DisplayMemberBinding="{Binding Path=Pribor.Name}"/>
+                                        <GridViewColumn Header="Стоимость" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Price, Converter={StaticResource MoneyConverter}}"/>
+                                        <GridViewColumn Header="Единица измерения" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Dimension}"/>
+                                        <GridViewColumn Header="Амортизация (%)" Width="100" DisplayMemberBinding="{Binding Path=Pribor.Percent}"/>
+                                        <GridViewColumn Header="Количество приборов" Width="100" DisplayMemberBinding="{Binding Path=Count}" />
+                                        <GridViewColumn Header="Стоимость амортизация приборов за час в сум" Width="100" DisplayMemberBinding="{Binding Path=PricePriborInHour, Converter={StaticResource MoneyConverter}}" />
+                                        <GridViewColumn Header="Статус" Width="50">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding IsYes}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal" Margin="2">
+                            <TextBlock>
+                                        Материалы. Сумма:
+                            </TextBlock>
+                            <TextBlock Text="{Binding PriceMaterial, Converter={StaticResource MoneyConverter}}"></TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <Grid>
+                        <StackPanel>
+                            <ListView ItemsSource="{Binding Path=Materials}"
+                                      MinHeight="150" MaxHeight="150">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Код материалов" Width="90" DisplayMemberBinding="{Binding Path=Material.Code}"/>
+                                        <GridViewColumn Header="Наименования материалов" Width="200" DisplayMemberBinding="{Binding Path=Material.Name}"/>
+                                        <GridViewColumn Header="Стоимость материалов" Width="90" DisplayMemberBinding="{Binding Path=Material.Price, Converter={StaticResource MoneyConverter}}"/>
+                                        <GridViewColumn Header="Единица измерения" Width="100" DisplayMemberBinding="{Binding Path=Material.Dimension}"/>
+                                        <GridViewColumn Header="За вес объём" Width="50">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding ForAllObject}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Норматив на единицу объема" Width="80" DisplayMemberBinding="{Binding Path=Count, Converter={StaticResource DoubleConverter}}"/>
+                                        <GridViewColumn Header="Стоимость на норматив" Width="80" DisplayMemberBinding="{Binding Path=PriceNorma, Converter={StaticResource MoneyConverter}}"/>
+                                        <GridViewColumn Header="Статус" Width="50">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding IsYes}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>
+                                        Коэффициенты
+                            </TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <Grid>
+                        <StackPanel>
+                            <ListView Grid.Row="1" 
+                                            ItemsSource="{Binding Path=Commentaries}"
+                                              MinHeight="150" MaxHeight="150">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Наименования коэффициентов" Width="200" DisplayMemberBinding="{Binding Path=Commentary.Name}"/>
+                                        <GridViewColumn Header="Значения" Width="100" DisplayMemberBinding="{Binding Path=Commentary.Koef}"/>
+                                        <GridViewColumn Header="Статус" Width="100">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding IsYes}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Margin="0 5 10 0" Width="100" Click="btn_Cancel">Отмена</Button>
+                    <Button Margin="10 5 10 0" Width="100" Click="btn_Ok">Ок</Button>
+                </StackPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>

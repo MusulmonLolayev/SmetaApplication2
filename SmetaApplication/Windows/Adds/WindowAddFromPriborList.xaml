@@ -1,0 +1,42 @@
+﻿<Window x:Class="SmetaApplication.Windows.Adds.WindowAddFromPriborList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmetaApplication.Windows.Adds"
+        xmlns:converter="clr-namespace:SmetaApplication.Converter"
+        mc:Ignorable="d"
+        Title="Введите количество приборов или оборудования и нажимаете кнопку ОК">
+
+    <Window.Resources>
+        <converter:MoneyConverter x:Key="MoneyConverter"/>
+        <converter:DoubleConverter x:Key="DoubleConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="data" 
+                      Height="Auto" Margin="5,5,5,5" 
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Width="100" Binding="{Binding Path=Pribor.Code}"/>
+                <DataGridTextColumn Header="Наименования" Width="200" Binding="{Binding Path=Pribor.Name}"/>
+                <DataGridTextColumn Header="Стоимость" Width="120" Binding="{Binding Path=Pribor.Price, Converter={StaticResource MoneyConverter}}"/>
+                <DataGridTextColumn Header="Единица измерения" Width="150" Binding="{Binding Path=Pribor.Dimension}"/>
+                <DataGridTextColumn Header="Амортизация (%)" Width="100" Binding="{Binding Path=Pribor.Percent}"/>
+                <DataGridTextColumn Header="Количество приборов" Width="100" Binding="{Binding Path=PriborGroup.Count}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+            <Button Click="btnCancel" Content="Отмена" Margin="2" Width="100"/>
+            <Button Click="btnOk" Content="Ок" Margin="2" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>
